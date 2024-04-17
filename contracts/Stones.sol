@@ -55,9 +55,9 @@ contract Stones is Initializable, ERC721, Pausable, PaymentSplitter {
     /// @notice Is Base Contract flag
     bool public isBase;
     /// @notice Token name
-    string private name;
+    string private tokenName;
     /// @notice Token symbol
-    string private symbol;
+    string private tokenSymbol;
     /// @notice Base URI for the token
     string private baseURI;
     /// @notice Presale price
@@ -168,8 +168,8 @@ contract Stones is Initializable, ERC721, Pausable, PaymentSplitter {
         );
 
         // Set variables for the contract
-        name = name_;
-        symbol = symbol_;
+        tokenName = name_;
+        tokenSymbol = symbol_;
         baseURI = uri_;
         presalePrice = presalePrice_;
         publicPrice = publicPrice_;
@@ -381,13 +381,13 @@ contract Stones is Initializable, ERC721, Pausable, PaymentSplitter {
     }
 
     /// @notice returns name of token
-    function getName() public view virtual returns (string memory) {
-        return name;
+    function name() public view override returns (string memory) {
+        return tokenName;
     }
 
     /// @notice returns symbol of token
-    function getSymbol() public view virtual returns (string memory) {
-        return symbol;
+    function symbol() public view override returns (string memory) {
+        return tokenSymbol;
     }
 
     /// @notice returns base URI of token
