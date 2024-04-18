@@ -1,0 +1,78 @@
+Part 2 - Lesson 3 - Basic Variable Types
+- There are multiple types in solidity
+    - uint is a unsigned integer, a positive whole number, it defaults to uin256
+    - bytes have a maximum of 32 as the size and byte is different than bytes32 
+    - strings under the hood are bytes because of their hexadecimal origin
+
+Part 2 - Lesson 4 - Functions
+- Function parameters have a standard of being written starting with the underscore
+example: _favoriteNumber representing the variable _favoriteNumber
+
+- If we dont give our variables or functions any visibility specifiers it will be
+defaulted to internal
+
+- There are 4 types of visibility modifiers
+    - public is visible externally and internally, essentially creating a getter function for
+    storage and state variables. (We can call them from anywhere in the blockchain)
+    - private is making the function or variable callable inside of the contract having this variable
+    - internal only child contracts can call internal variables and or functions
+    - external are special, they cannot be called from the inside of the contract. It is an
+    equivilant to a message call which means if called from the same contract they create a new call stack 
+    and consume more gas. 
+        - The function parameters of a external contract are not stored in memory but are read directly from 
+        the call data. Thus the point is when external functions are called from outside the contract they are more
+        efficient and dont need new gas storage because they dont need to create a new call stack
+- View and Pure
+    - view is a function modifier that when set makes sure the function does not change a state in the
+    blockchain. It is just used for reading data or states of the blockchain
+        - Does not consume any gas due to it not changing the state of the function, WHEN CALLED EXTERNALLY
+        - When called internally, it does consume gas because of it leading to more computations
+    - pure functions are even more restrictive than view functions
+        - Don't use the state of the function at all, not for read not write.
+        - When called externally they do not consume any gas, since they are used for calculations only 
+        and dont save anything on the blockchain, they do not consume any gas
+        - They are deterministic and have no other options when called given the same parameters
+
+Part 2 - Lesson 5 - Arrays and Structs
+
+Part 2 - Lesson 6 - Errors and Warnings
+
+Part 2 - Lesson 7 - Memory Storage and calldata
+- There are 6 place we can store data in solidity: Stack, Memory, Storage, Calldata, code, logs
+- Storage is permenant memory for variables.
+    - The storage keyword cannot be assigned to parameters and is implicitally applied to state variables when we
+    instantiate them. They can be accessed in any time.
+- Memory and Calldata are temporary memory
+    - They are usually used for parameters. Only special types of variables like arrays, structs, and strings
+    - Memory parameters are modifiable in the scope of the function 
+    - Call data are not modifiable in the function and are also short term, when the function executes we no longer
+    have access to said parameters
+
+Part 2 - Lesson 8 - Mappings
+
+Part 2 - Lesson 9 - Deploying your first contract
+
+Part 3 - Lesson 1-2-3
+
+Part 3 - Lesson 4 - Solidity Imports
+- Importing contracts to other contracts through import statements is equivilant to copying 
+this contract and pasting it where the contract is found
+- There is a way to import very specific parts of a certain contract and this is done to reduce deployment costs
+this is specific to the case that the contract being imported is extremly huge
+- Ex: import {SimpleStorage} from "./SimpleStorage.sol";
+
+Part 3 - Lesson 5-6
+
+Part 3 - Lesson 7 Inheritance in Solidity
+- Inheritance
+    - We can have a child contract inherit all the functionalities of a parent contract simply by stating in the signature
+    of the contract the the child contract "is" the name of the parent contract and it should be in the same root directory 
+    of the parent contract
+    - We use named imports as a better import approach 
+    - Override and Virtual Specifiers:
+        - Virtual is used in order to make a function overridable. So if the parent contract has a function and
+        when the child contract wanted to override it, it will not compile due to the function in the parent function 
+        not having the virtual specifier in its signature.
+        - Override is used when a child contract want to change the function created in the parent contract without 
+        changing its signature
+
